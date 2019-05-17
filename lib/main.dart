@@ -61,7 +61,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 ]
               ),
 
-
               //Marcador
               MarkerLayerOptions(
                   markers: [
