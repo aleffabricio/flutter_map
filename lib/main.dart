@@ -20,13 +20,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  var center = [];
   MapController mapController = MapController();
 
   var points = <LatLng>[
     LatLng(-16.6298953, -49.2806259),
     LatLng(-16.7113339, -49.2387288),
-
   ];
 
   @override
@@ -39,7 +38,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      appBar: AppBar(title: Text('Univista - Mapa'), backgroundColor: Colors.orange,),
+      appBar: AppBar(
+        title: Text('Univista - Mapa'),
+        backgroundColor: Colors.orange,
+      ),
       body: FlutterMap(
           mapController: mapController,
           options: _addMapOptions(LatLng(-13.776471219494596, -55.6400638224566)),
@@ -63,24 +65,21 @@ class _MyHomePageState extends State<MyHomePage> {
                   _addKml()
                 ]
             ),
-            //Adiciona marcador
-             MarkerLayerOptions(
+            PolylineLayerOptions(
+                polylines: [
+                  _addPolyline()
+                ]
+            ),
+            MarkerLayerOptions(
                 markers: [
                   _addMarker(LatLng(-16.7113339, -49.2387288)),
 
                 ]
             ),
-            PolylineLayerOptions(
-                polylines: [
-                  _addPolyline()
-                ]
-            )
           ]
       ),
     );
   }
-
-
 
   Marker _addMarker(LatLng _coord,){
     return  Marker(
@@ -108,7 +107,7 @@ class _MyHomePageState extends State<MyHomePage> {
         color: Colors.red
     );
   }
-
+//var coordscenter = [(parseFloat(object.east) + parseFloat(object.west)) / 2, (parseFloat(object.north) + parseFloat(object.south)) / 2];
   OverlayImage _addKml(){
     Kml obj = _getKml();
     return OverlayImage(
@@ -124,9 +123,14 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   MapOptions _addMapOptions(LatLng _coord){
+    Kml obj = _getKml();
+    setState(() {
+      center = [(obj.north + obj.south) / 2,(obj.east + obj.west) / 2]; //Calculo para abrir o mapa com o centro do kml
+    });
+    print(center);
     return MapOptions(
         zoom: 13.5,
-        center: _coord,
+        center: LatLng(center[0],center[1]),
         minZoom: 5.0,
         maxZoom: 18.0
     );
@@ -150,5 +154,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return objectKml;
   }
+
 
 }
