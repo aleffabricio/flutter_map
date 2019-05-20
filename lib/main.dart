@@ -21,7 +21,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var center = [];
-  MapController mapController = MapController();
+  MapController mapController;
 
   var points = <LatLng>[
     LatLng(-16.6298953, -49.2806259),
@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-
+    mapController = MapController();
   }
 
   @override
