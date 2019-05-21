@@ -2,6 +2,8 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong/latlong.dart';
 import 'package:flutter/material.dart';
 import 'kml.dart';
+import 'package:sensors/sensors.dart';
+import 'package:location/location.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,6 +22,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
   var center = [];
   MapController mapController;
 
@@ -32,6 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     mapController = MapController();
+    _getLocation();
   }
 
   @override
@@ -46,19 +50,19 @@ class _MyHomePageState extends State<MyHomePage> {
           mapController: mapController,
           options: _addMapOptions(LatLng(-13.776471219494596, -55.6400638224566)),
           layers: [
-            /* TileLayerOptions(
+             TileLayerOptions(
                   urlTemplate: "https://api.tiles.mapbox.com/v4/"
                       "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
                   additionalOptions: {
                     'accessToken': 'pk.eyJ1IjoiYWxlZmZhYnJpY2lvIiwiYSI6ImNqdm43b3E2MzA5a2M0OXFrcHk2YnkxYmsifQ._3QyKO8eLWezgeO4NLkq3Q',
-                    'id': 'mapbox.streets',
+                    'id': 'mapbox.satellite',
                   },
-                ),*/
+                ),
             //Mapa OpenStreetMaps
-            TileLayerOptions(
+            /*TileLayerOptions(
               urlTemplate: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
               subdomains: ['a', 'b', 'c'],
-            ),
+            ),*/
             // Adiciona o KML image com suas coordenadas
             OverlayImageLayerOptions(
                 overlayImages: [
@@ -76,7 +80,37 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 ]
             ),
+            CircleLayerOptions(
+                circles: [
+                  CircleMarker(
+                      point: LatLng(-16.6298953, -49.2806259),
+                      color: Colors.blue.withOpacity(0.3),
+                      borderStrokeWidth: 3.0,
+                      borderColor: Colors.blue,
+                      radius: 100 //radius
+                  )
+                ],
+            ),
+
           ]
+      ),
+      floatingActionButton: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          FloatingActionButton(backgroundColor: Colors.orange,
+            child: Icon(Icons.location_on, color: Colors.red, size: 30.0,),
+            onPressed: (){
+              mapController.move(LatLng(-16.7113339, -49.2387288), 13.5);
+            },
+          ),
+          Padding(padding: EdgeInsets.all(10.0),),
+          FloatingActionButton(backgroundColor: Colors.orange,
+            child: Icon(Icons.label_outline, color: Colors.red, size: 30.0,),
+            onPressed: (){
+              mapController.move(LatLng(center[0],center[1]), 13.5);
+            },
+          ),
+        ],
       ),
     );
   }
@@ -109,11 +143,12 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 //var coordscenter = [(parseFloat(object.east) + parseFloat(object.west)) / 2, (parseFloat(object.north) + parseFloat(object.south)) / 2];
   OverlayImage _addKml(){
-    Kml obj = _getKml();
+    //Kml obj = _getKml();
+    Kml obj = _getKml2();
     return OverlayImage(
         bounds: LatLngBounds(LatLng(obj.south, obj.west), LatLng(obj.north, obj.east)),
-        opacity: 0.8,
-        imageProvider: AssetImage("assets/images/kmlfazenda.png")
+        opacity: 1.0,
+        imageProvider: AssetImage("assets/images/fazenda.png")
     );
 /*
     North: -13.757677476543392
@@ -124,7 +159,8 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   MapOptions _addMapOptions(LatLng _coord){
-    Kml obj = _getKml();
+    //Kml obj = _getKml();
+    Kml obj = _getKml2();
     setState(() {
       center = [(obj.north + obj.south) / 2,(obj.east + obj.west) / 2]; //Calculo para abrir o mapa com o centro do kml
     });
@@ -133,7 +169,7 @@ class _MyHomePageState extends State<MyHomePage> {
         zoom: 13.5,
         center: LatLng(center[0],center[1]),
         minZoom: 5.0,
-        maxZoom: 18.0
+        maxZoom: 18.0,
     );
   }
 
@@ -154,6 +190,46 @@ class _MyHomePageState extends State<MyHomePage> {
     );
 
     return objectKml;
+  }
+
+  Kml _getKml2() {
+    var objectKml = Kml(
+        1,
+        "teste",
+        -54.5904758912788,
+        -20.6517650974851,
+        -20.6819818271086,
+        -54.6118412556591,
+        "assets/images/kmlfazenda.png"
+    );
+
+    return objectKml;
+  }
+
+
+  void gyroscope(){
+    accelerometerEvents.listen((AccelerometerEvent event) {
+      // Do something with the event.
+    });
+
+    gyroscopeEvents.listen((GyroscopeEvent event) {
+      setState(() {
+        print("valor do gyroscopio");
+        print(event.x);
+        print(event.y);
+        print(event.z);
+      });
+    });
+
+  }
+
+  _getLocation(){
+    var location = new Location();
+
+    location.onLocationChanged().listen((LocationData currentLocation) {
+        print(currentLocation.latitude);
+        print(currentLocation.longitude);
+    });
   }
 
 
