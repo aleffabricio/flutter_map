@@ -113,7 +113,8 @@ class _MyHomePageState extends State<MyHomePage> {
     return OverlayImage(
         bounds: LatLngBounds(LatLng(obj.south, obj.west), LatLng(obj.north, obj.east)),
         opacity: 0.8,
-        imageProvider: AssetImage("assets/images/kmlfazenda.png"));
+        imageProvider: AssetImage("assets/images/kmlfazenda.png")
+    );
 /*
     North: -13.757677476543392
     south: -13.776471219494596
@@ -154,6 +155,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return objectKml;
   }
+
 
 
 }
