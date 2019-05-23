@@ -102,6 +102,34 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  fluttertoast:
+    dependency: transitive
+    description:
+      name: fluttertoast
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
+  geolocator:
+    dependency: transitive
+    description:
+      name: geolocator
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.0.1"
+  geopoint:
+    dependency: transitive
+    description:
+      name: geopoint
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
+  google_api_availability:
+    dependency: transitive
+    description:
+      name: google_api_availability
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.1"
   http:
     dependency: transitive
     description:
@@ -130,6 +158,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.6.1"
+  livemap:
+    dependency: "direct main"
+    description:
+      name: livemap
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.0"
   location:
     dependency: "direct main"
     description:
@@ -179,6 +214,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.0"
+  permission_handler:
+    dependency: transitive
+    description:
+      name: permission_handler
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "3.1.0"
   positioned_tap_detector:
     dependency: transitive
     description:
@@ -193,6 +235,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.2"
+  rxdart:
+    dependency: transitive
+    description:
+      name: rxdart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.21.0"
   sensors:
     dependency: "direct main"
     description:
@@ -205,6 +254,13 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  slugify2:
+    dependency: transitive
+    description:
+      name: slugify2
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.2.1"
   source_span:
     dependency: transitive
     description:
@@ -212,6 +268,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.5.5"
+  speech_bubble:
+    dependency: transitive
+    description:
+      name: speech_bubble
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.5"
   sqflite:
     dependency: transitive
     description:

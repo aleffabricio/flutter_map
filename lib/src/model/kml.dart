@@ -11,6 +11,7 @@ class Kml{
 
   Kml(this.id, this.descricao, this.east, this.north, this.south, this.west, this.image);
 
+
 }
 
 
